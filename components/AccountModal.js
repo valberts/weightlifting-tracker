@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import ReactDom from 'react-dom'
 import { useAuth } from '../context/AuthContext'
 
-export default function Modal(props) {
+export default function AccountModal(props) {
     const { setOpenModal } = props
     const [_document, set_document] = useState(null)
     const { logout } = useAuth()
