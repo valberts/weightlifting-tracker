@@ -5,8 +5,6 @@ export default function ExerciseDropdown() {
 
     useEffect(() => {
         const keyDownHandler = (event) => {
-            console.log('User pressed: ', event.key)
-
             if (event.key === 'Escape') {
                 setIsOpen(false)
             }
@@ -22,29 +20,36 @@ export default function ExerciseDropdown() {
             <button
                 onClick={() => setIsOpen(!isOpen)}
                 tabIndex="-1"
-                className="relative focus:z-10 flex w-full p-2 sm:p-3 justify-center items-center border border-solid border-white   duration-300 hover:opacity-40"
+                className="flex w-full p-2 sm:p-3 justify-center items-center border border-solid border-white duration-300 hover:opacity-40"
             >
                 <h2 className="px-2 select-none">Select exercise</h2>
-                <i className="fa-solid fa-chevron-down px-2"></i>
+                <i
+                    className={`fa-solid fa-chevron-down px-2 duration-300 ${
+                        isOpen ? 'rotate-180' : ''
+                    }`}
+                ></i>
             </button>
             {isOpen && (
                 <button
                     onClick={() => setIsOpen(false)}
                     tabIndex="-1"
-                    className="fixed inset-0 h-full w-full bg-slate-900 opacity-50 cursor-default"
+                    className="fixed inset-0 h-full w-full cursor-default"
                 ></button>
             )}
             {isOpen && (
-                <div className="absolute w-full bg-white text-slate-900">
-                    <h2 className="block cursor-pointer select-none hover:bg-indigo-100">
-                        Option 1
+                <div className="w-full absolute bg-white text-slate-900">
+                    <h2 className="block cursor-pointer select-none duration-300 hover:bg-indigo-500 hover:text-white px-4 py-2 text-center">
+                        Bench press
                     </h2>
-                    <h2 className="block cursor-pointer select-none hover:bg-indigo-100">
-                        Option 2
+                    <h2 className="block cursor-pointer select-none duration-300 hover:bg-indigo-500 hover:text-white px-4 py-2 border-t-2 text-center">
+                        Deadlift
                     </h2>
-                    <h2 className="block cursor-pointer select-none hover:bg-indigo-100">
-                        Option 3
+                    <h2 className="block cursor-pointer select-none duration-300 hover:bg-indigo-500 hover:text-white px-4 py-2 border-t-2 text-center">
+                        Squat
                     </h2>
+                    <button className="block w-full select-none duration-300 hover:bg-indigo-500 hover:text-white px-4 py-2 border-t-2">
+                        Add new exercise
+                    </button>
                 </div>
             )}
             <div>Element under dropdown</div>
