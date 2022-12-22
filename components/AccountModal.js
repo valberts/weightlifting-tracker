@@ -3,9 +3,9 @@ import ReactDom from 'react-dom'
 import { useAuth } from '../context/AuthContext'
 
 export default function AccountModal(props) {
-    const { setOpenModal } = props
+    const { setOpenAccountModal } = props
     const [_document, set_document] = useState(null)
-    const { logout, currentUser } = useAuth()
+    const { logout } = useAuth()
 
     useEffect(() => {
         set_document(document)
@@ -22,7 +22,7 @@ export default function AccountModal(props) {
                     Menu
                 </h1>
                 <i
-                    onClick={() => setOpenModal(false)}
+                    onClick={() => setOpenAccountModal(false)}
                     className="fa-solid fa-xmark text-2xl sm:text-4xl duration-300 hover:rotate-90 hover:opacity-50 cursor-pointer"
                 ></i>
             </div>
@@ -40,7 +40,7 @@ export default function AccountModal(props) {
                 <h2
                     onClick={() => {
                         logout()
-                        setOpenModal(false)
+                        setOpenAccountModal(false)
                     }}
                     className="select-none"
                 >

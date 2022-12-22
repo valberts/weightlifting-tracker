@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import { useAuth } from '../context/AuthContext'
 
-export default function AccountDropdown() {
+export default function AccountDropdown(props) {
     const [isOpen, setIsOpen] = useState(false)
-
-    const { currentUser, logout } = useAuth()
+    const { currentUser, logout, setOpenExerciseModal } = props
 
     useEffect(() => {
         const keyDownHandler = (event) => {
@@ -22,7 +20,7 @@ export default function AccountDropdown() {
         <div className="hidden sm:block relative">
             <i
                 onClick={() => setIsOpen(!isOpen)}
-                className="relative z-10 fa-solid fa-user-ninja text-xl duration-300 hover:opacity-40 cursor-pointer sm:text-3xl"
+                className="relative z-10 fa-solid fa-user text-xl duration-300 hover:opacity-40 cursor-pointer sm:text-3xl"
             ></i>
             {isOpen && (
                 <button
@@ -36,7 +34,13 @@ export default function AccountDropdown() {
                     <h2 className="block py-2 px-4 select-none font-semibold break-words">
                         {currentUser.email}
                     </h2>
-                    <div className="flex flex-row items-center py-2 px-4 duration-300 hover:bg-indigo-500 hover:text-white select-none cursor-pointer border-t-2">
+                    <div
+                        onClick={() => {
+                            setOpenExerciseModal(true)
+                            setIsOpen(false)
+                        }}
+                        className="flex flex-row items-center py-2 px-4 duration-300 hover:bg-indigo-500 hover:text-white select-none cursor-pointer border-t-2"
+                    >
                         <i className="fa-solid fa-list block pr-2"></i>
                         <h2 className="block">Select exercise</h2>
                     </div>
