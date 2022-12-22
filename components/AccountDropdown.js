@@ -32,19 +32,28 @@ export default function AccountDropdown() {
                 ></button>
             )}
             {isOpen && (
-                <div className="absolute right-0 py-2 w-48 mt-2 bg-white text-slate-800 rounded-lg shadow-xl text-base font-normal">
-                    <h2 className="block py-2 px-4 select-none">
+                <div className="absolute right-0 py-2 w-48 mt-2 bg-white text-slate-600 rounded-lg shadow-xl text-base font-normal">
+                    <h2 className="block py-2 px-4 select-none font-semibold break-words">
                         {currentUser.email}
                     </h2>
-                    <h2
+                    <div className="flex flex-row items-center py-2 px-4 duration-300 hover:bg-indigo-500 hover:text-white select-none cursor-pointer border-t-2">
+                        <i className="fa-solid fa-list block pr-2"></i>
+                        <h2 className="block">Select exercise</h2>
+                    </div>
+                    <div className="flex flex-row items-center py-2 px-4 duration-300 hover:bg-indigo-500 hover:text-white select-none cursor-pointer">
+                        <i className="fa-solid fa-plus block pr-2"></i>
+                        <h2 className="block">Log workout</h2>
+                    </div>
+                    <div
                         onClick={() => {
                             logout()
                             setIsOpen(false)
                         }}
-                        className="block py-2 px-4 duration-300 hover:bg-indigo-500 hover:text-white select-none border-t-2 cursor-pointer"
+                        className="flex flex-row items-center py-2 px-4 duration-300 hover:bg-indigo-500 hover:text-white select-none cursor-pointer"
                     >
-                        Logout
-                    </h2>
+                        <i className="fa-solid fa-right-from-bracket block pr-2"></i>
+                        <h2 className="block">Logout</h2>
+                    </div>
                 </div>
             )}
         </div>

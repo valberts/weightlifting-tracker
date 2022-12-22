@@ -5,7 +5,7 @@ import { useAuth } from '../context/AuthContext'
 export default function AccountModal(props) {
     const { setOpenModal } = props
     const [_document, set_document] = useState(null)
-    const { logout } = useAuth()
+    const { logout, currentUser } = useAuth()
 
     useEffect(() => {
         set_document(document)
@@ -23,16 +23,26 @@ export default function AccountModal(props) {
                 </h1>
                 <i
                     onClick={() => setOpenModal(false)}
-                    className="fa-solid fa-xmark text-xl sm:text-3xl duration-300 hover:rotate-90 hover:opacity-50 cursor-pointer"
+                    className="fa-solid fa-xmark text-2xl sm:text-4xl duration-300 hover:rotate-90 hover:opacity-50 cursor-pointer"
                 ></i>
             </div>
-            <div className="p-4 flex flex-column">
+            <div className="p-4 flex flex-row items-center border-b-2 border-b-slate-200 duration-300 hover:pl-6 cursor-pointer">
+                <i className="fa-solid fa-list block pr-4"></i>
+                <h2 className="select-none">Select exercise</h2>
+            </div>
+            <div className="p-4 flex flex-row items-center border-b-2 border-b-slate-200 duration-300 hover:pl-6 cursor-pointer">
+                <i className="fa-solid fa-plus block pr-4"></i>
+                <h2 className="select-none ">Log workout</h2>
+            </div>
+            <div className="p-4 flex flex-row items-center border-b-2 border-b-slate-200 duration-300 hover:pl-6 cursor-pointer">
+                <i className="fa-solid fa-right-from-bracket block pr-4"></i>
+
                 <h2
                     onClick={() => {
                         logout()
                         setOpenModal(false)
                     }}
-                    className="select-none duration-300 hover:pl-2 cursor-pointer"
+                    className="select-none"
                 >
                     Logout
                 </h2>
