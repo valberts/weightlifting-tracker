@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 
-export default function ExerciseDropdown() {
+export default function ExerciseDropdown(props) {
+    const { currentlySelected, setCurrentlySelected, setError } = props
     const [isOpen, setIsOpen] = useState(false)
 
     useEffect(() => {
@@ -16,43 +17,72 @@ export default function ExerciseDropdown() {
     }, [])
 
     return (
-        <div className="relative">
-            <button
-                onClick={() => setIsOpen(!isOpen)}
-                tabIndex="-1"
-                className="flex w-full p-2 sm:p-3 justify-center items-center border border-solid border-white duration-300 hover:opacity-40"
-            >
-                <h2 className="px-2 select-none">Select exercise</h2>
-                <i
-                    className={`fa-solid fa-chevron-down px-2 duration-300 ${
-                        isOpen ? 'rotate-180' : ''
-                    }`}
-                ></i>
-            </button>
-            {isOpen && (
+        <>
+            <div className="relative">
                 <button
-                    onClick={() => setIsOpen(false)}
-                    tabIndex="-1"
-                    className="fixed inset-0 h-full w-full cursor-default"
-                ></button>
-            )}
-            {isOpen && (
-                <div className="w-full absolute bg-white text-slate-900">
-                    <h2 className="block cursor-pointer select-none duration-300 hover:bg-indigo-500 hover:text-white px-4 py-2 text-center">
-                        Bench press
-                    </h2>
-                    <h2 className="block cursor-pointer select-none duration-300 hover:bg-indigo-500 hover:text-white px-4 py-2 border-t-2 text-center">
-                        Deadlift
-                    </h2>
-                    <h2 className="block cursor-pointer select-none duration-300 hover:bg-indigo-500 hover:text-white px-4 py-2 border-t-2 text-center">
-                        Squat
-                    </h2>
-                    <button className="block w-full select-none duration-300 hover:bg-indigo-500 hover:text-white px-4 py-2 border-t-2">
-                        Add new exercise
-                    </button>
-                </div>
-            )}
-            <div>Element under dropdown</div>
-        </div>
+                    onClick={() => setIsOpen(!isOpen)}
+                    className="flex flex-row items-center justify-between px-2 py-1 border border-gray-300 rounded-md w-full select-none"
+                >
+                    {currentlySelected ? currentlySelected : 'Select Exercise'}
+                    <i
+                        className={`fa-solid fa-chevron-down px-2 duration-300 ${
+                            isOpen ? 'rotate-180' : ''
+                        }`}
+                    ></i>
+                </button>
+                {isOpen && (
+                    <button
+                        onClick={() => setIsOpen(false)}
+                        tabIndex="-1"
+                        className="fixed inset-0 h-full w-full cursor-default"
+                    ></button>
+                )}
+                {isOpen && (
+                    <div className="mt-2 flex flex-col absolute w-full max-h-40 shadow-lg overflow-scroll border bg-white">
+                        <button
+                            onClick={() => {
+                                setCurrentlySelected('Bench press')
+                                setIsOpen(false)
+                                setError(null)
+                            }}
+                            className="py-1 select-none duration-300 hover:bg-indigo-500 hover:text-white"
+                        >
+                            Bench press
+                        </button>
+                        <button
+                            onClick={() => {
+                                setCurrentlySelected('Squat')
+                                setIsOpen(false)
+                                setError(null)
+                            }}
+                            className="py-1 pxselect-none duration-300 hover:bg-indigo-500 hover:text-white border-t-2"
+                        >
+                            Squat
+                        </button>
+                        <button
+                            onClick={() => {
+                                setCurrentlySelected('Deadlift')
+                                setIsOpen(false)
+                                setError(null)
+                            }}
+                            className="py-1 select-none duration-300 hover:bg-indigo-500 hover:text-white border-t-2"
+                        >
+                            Deadlift
+                        </button>
+                        <button
+                            onClick={() => {
+                                setCurrentlySelected(null)
+                                setIsOpen(false)
+                                setError(null)
+                            }}
+                            className="flex flex-row items-center justify-center py-1 select-none duration-300 hover:bg-indigo-500 hover:text-white border-t-2"
+                        >
+                            <i className="fa-solid fa-plus pr-2"></i>
+                            <h2 className="font-semibold">Add new exercise</h2>
+                        </button>
+                    </div>
+                )}
+            </div>
+        </>
     )
 }

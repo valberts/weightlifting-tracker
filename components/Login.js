@@ -30,7 +30,7 @@ export default function Login() {
                 {isLoggingIn ? 'Login' : 'Register'}
             </h1>
             {error && (
-                <div className="w-full max-w-[30ch] border border-solid border-rose-400 text-rose-400 text-center padding-y-2">
+                <div className="w-full max-w-[30ch] border border-solid border-rose-400 text-rose-400 text-center">
                     {error}
                 </div>
             )}

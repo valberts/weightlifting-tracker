@@ -26,11 +26,11 @@ export default function AccountDropdown(props) {
                 <button
                     onClick={() => setIsOpen(false)}
                     tabIndex="-1"
-                    className="fixed inset-0 h-full w-full bg-slate-900 opacity-50 cursor-default"
+                    className="fixed inset-0 h-full w-full bg-slate-900 bg-opacity-25 cursor-default"
                 ></button>
             )}
             {isOpen && (
-                <div className="absolute right-0 py-2 w-48 mt-2 bg-white text-slate-600 rounded-lg shadow-xl text-base font-normal">
+                <div className="absolute right-0 py-2 w-48 mt-2 bg-white text-slate-900 rounded-lg shadow-xl text-base font-normal">
                     <h2 className="block py-2 px-4 select-none font-semibold break-words">
                         {currentUser.email}
                     </h2>
