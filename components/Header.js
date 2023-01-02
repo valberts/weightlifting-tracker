@@ -12,7 +12,10 @@ export default function Header() {
     return (
         <>
             {openAccountModal && (
-                <AccountModal setOpenAccountModal={setOpenAccountModal} />
+                <AccountModal
+                    setOpenAccountModal={setOpenAccountModal}
+                    setOpenExerciseModal={setOpenExerciseModal}
+                />
             )}
             {openExerciseModal && (
                 <SelectExerciseModal

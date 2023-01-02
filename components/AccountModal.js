@@ -3,7 +3,7 @@ import ReactDom from 'react-dom'
 import { useAuth } from '../context/AuthContext'
 
 export default function AccountModal(props) {
-    const { setOpenAccountModal } = props
+    const { setOpenAccountModal, setOpenExerciseModal } = props
     const [_document, set_document] = useState(null)
     const { logout } = useAuth()
 
@@ -28,7 +28,15 @@ export default function AccountModal(props) {
             </div>
             <div className="p-4 flex flex-row items-center border-b-2 border-b-slate-200 duration-300 hover:pl-6 cursor-pointer">
                 <i className="fa-solid fa-list block pr-4"></i>
-                <h2 className="select-none">Select exercise</h2>
+                <h2
+                    onClick={() => {
+                        setOpenAccountModal(false)
+                        setOpenExerciseModal(true)
+                    }}
+                    className="select-none"
+                >
+                    Select exercise
+                </h2>
             </div>
             <div className="p-4 flex flex-row items-center border-b-2 border-b-slate-200 duration-300 hover:pl-6 cursor-pointer">
                 <i className="fa-solid fa-plus block pr-4"></i>

@@ -37,8 +37,8 @@ export default function SelectExerciseModal(props) {
             className="fixed inset-0 bg-slate-900 bg-opacity-25 flex justify-center items-center"
             id="wrapper"
         >
-            <div className="w-1/2 rounded-lg shadow-xl flex flex-col bg-white text-slate-900">
-                <div className="p-4 flex flex-col flex-1">
+            <div className="w-full max-w-[30ch] rounded-lg shadow-xl flex flex-col bg-white text-slate-900">
+                <div className="sm:p-6 p-4 flex flex-col flex-1">
                     {/* Select Exercise */}
                     {/* <Dropdown /> */}
                     <ExerciseDropdown
@@ -47,22 +47,22 @@ export default function SelectExerciseModal(props) {
                         setError={setError}
                     />
                     {error && (
-                        <div className="w-full max-w-[30ch] border border-solid border-rose-400 text-rose-400 text-center mt-2">
+                        <div className="w-full max-w-[30ch] border border-solid border-rose-400 text-rose-400 text-center mt-4 text-lg sm:text-base">
                             {error}
                         </div>
                     )}
                 </div>
 
-                <div className="py-2 px-4 flex-row flex justify-end space-x-3 items-center bg-gray-100 text-sm rounded-b-lg">
+                <div className="py-2 px-4 flex-col-reverse sm:flex-row flex justify-end sm:space-x-3 items-center bg-gray-100 rounded-b-lg text-lg sm:text-base">
                     <button
                         onClick={() => setOpenExerciseModal(false)}
-                        className="py-1 px-3 rounded-md bg-white border border-gray-300 duration-300 hover:bg-gray-100 select-none"
+                        className="py-2 mt-2 sm:mt-0 sm:py-1 px-3 rounded-md bg-white border border-gray-300 duration-300 hover:bg-gray-100 select-none w-full sm:w-auto"
                     >
                         Cancel
                     </button>
                     <button
                         onClick={handleSelect}
-                        className="py-1 px-3 rounded-md bg-blue-600 border border-transparent text-white duration-300 hover:bg-blue-700 select-none"
+                        className="py-2 sm:py-1 px-3 rounded-md bg-blue-600 border border-transparent text-white duration-300 hover:bg-blue-700 select-none w-full sm:w-auto text-lg sm:text-base"
                     >
                         Select
                     </button>
