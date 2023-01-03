@@ -17,6 +17,8 @@ export function useAuth() {
 export function AuthProvider({ children }) {
     const [currentUser, setCurrentUser] = useState(null)
     const [loading, setLoading] = useState(true)
+    const [errorCode, setErrorCode] = useState(null)
+    const [errorMessage, setErrorMessage] = useState(null)
     const userInfo = useRef()
 
     function signup(email, password) {
@@ -25,7 +27,10 @@ export function AuthProvider({ children }) {
     }
 
     function login(email, password) {
-        signInWithEmailAndPassword(auth, email, password)
+        signInWithEmailAndPassword(auth, email, password).catch((error) => {
+            setErrorCode(error.code)
+            setErrorMessage(error.message)
+        })
         return
     }
 
@@ -47,6 +52,8 @@ export function AuthProvider({ children }) {
         signup,
         logout,
         userInfo,
+        errorCode,
+        errorMessage,
     }
 
     return (

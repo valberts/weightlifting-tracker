@@ -7,7 +7,7 @@ export default function Login() {
     const [error, setError] = useState(null)
     const [isLoggingIn, setIsLoggingIn] = useState(true)
 
-    const { login, signup } = useAuth()
+    const { login, signup, errorMessage, errorCode } = useAuth()
 
     async function submitHandler() {
         if (!email || !password) {
@@ -15,11 +15,15 @@ export default function Login() {
             return
         }
         if (isLoggingIn) {
-            try {
-                await login(email, password)
-            } catch (err) {
-                setError('Incorrect email or password')
+            await login(email, password)
+            if (errorCode == 'auth/too-many-requests') {
+                setError('Too many attempts, please try again later')
+                return
+            } else if (errorCode == 'auth/wrong-password') {
+                setError('Incorrect email or password, please try again')
+                return
             }
+            setError(errorCode)
             return
         }
         await signup(email, password)
