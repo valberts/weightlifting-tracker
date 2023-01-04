@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import useFetchExercises from '../hooks/fetchExercises'
 
 export default function ExerciseDropdown(props) {
     const {
@@ -9,6 +10,7 @@ export default function ExerciseDropdown(props) {
         setAddOpenExerciseModal,
     } = props
     const [isOpen, setIsOpen] = useState(false)
+    const { loading, error, exercises, setExercises } = useFetchExercises()
 
     useEffect(() => {
         const keyDownHandler = (event) => {
@@ -45,54 +47,46 @@ export default function ExerciseDropdown(props) {
                 )}
                 {isOpen && (
                     <div className="mt-2 flex flex-col absolute w-full max-h-80 sm:max-h-56 shadow-lg overflow-scroll border bg-white">
-                        <button
-                            onClick={() => {
-                                setCurrentlySelected('Bench press')
-                                setIsOpen(false)
-                                setError(null)
-                            }}
-                            className="sm:py-1 py-2 select-none duration-300 hover:bg-indigo-500 hover:text-white"
-                        >
-                            <div className="flex flex-row text-lg">
-                                <div className="p-2">Bench press</div>
-                                <div className="flex-1 justify-end items-center gap-2 flex p-2">
-                                    <i className="fa-solid fa-pen-to-square hover:scale-125 duration-300"></i>
-                                    <i className="fa-solid fa-trash hover:scale-125 duration-300"></i>
-                                </div>
-                            </div>
-                        </button>
-                        <button
-                            onClick={() => {
-                                setCurrentlySelected('Squat')
-                                setIsOpen(false)
-                                setError(null)
-                            }}
-                            className="sm:py-1 py-2 pxselect-none duration-300 hover:bg-indigo-500 hover:text-white border-t-slate-200 border-t-2"
-                        >
-                            <div className="flex flex-row text-lg">
-                                <div className="p-2">Squat</div>
-                                <div className="flex-1 justify-end items-center gap-2 flex p-2">
-                                    <i className="fa-solid fa-pen-to-square hover:scale-125 duration-300"></i>
-                                    <i className="fa-solid fa-trash hover:scale-125 duration-300"></i>
-                                </div>
-                            </div>
-                        </button>
-                        <button
-                            onClick={() => {
-                                setCurrentlySelected('Deadlift')
-                                setIsOpen(false)
-                                setError(null)
-                            }}
-                            className="sm:py-1 py-2 select-none duration-300 hover:bg-indigo-500 hover:text-white border-b-slate-200 border-t-2"
-                        >
-                            <div className="flex flex-row text-lg">
-                                <div className="p-2">Deadlift</div>
-                                <div className="flex-1 justify-end items-center gap-2 flex p-2">
-                                    <i className="fa-solid fa-pen-to-square hover:scale-125 duration-300"></i>
-                                    <i className="fa-solid fa-trash hover:scale-125 duration-300"></i>
-                                </div>
-                            </div>
-                        </button>
+                        {!error && !loading && (
+                            <>
+                                {Object.keys(exercises).map((exercise, i) => {
+                                    return (
+                                        <button
+                                            onClick={() => {
+                                                setCurrentlySelected(
+                                                    exercises[exercise]
+                                                )
+                                                setIsOpen(false)
+                                                setError(null)
+                                            }}
+                                            className="sm:py-1 py-2 select-none duration-300 hover:bg-indigo-500 hover:text-white border-b-slate-200 border-t-2"
+                                        >
+                                            <div className="flex flex-row text-lg">
+                                                <div className="p-2">
+                                                    {exercises[exercise]}
+                                                </div>
+                                                <div className="flex-1 justify-end items-center gap-2 flex p-2">
+                                                    <i className="fa-solid fa-pen-to-square hover:scale-125 duration-300"></i>
+                                                    <i className="fa-solid fa-trash hover:scale-125 duration-300"></i>
+                                                </div>
+                                            </div>
+                                        </button>
+                                        /* <TodoCard
+                                            key={i}
+                                            handlEditTodo={handleEditTodo}
+                                            handleAddEdit={handleAddEdit}
+                                            edit={edit}
+                                            todoKey={todo}
+                                            editedValue={editedValue}
+                                            setEditedValue={setEditedValue}
+                                            handleDelete={handleDelete}
+                                        >
+                                            {todos[todo]}
+                                        </TodoCard> */
+                                    )
+                                })}
+                            </>
+                        )}
                         <button
                             onClick={() => {
                                 setCurrentlySelected(null)
