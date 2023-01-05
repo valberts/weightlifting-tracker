@@ -1,4 +1,7 @@
 import React, { useEffect, useState } from 'react'
+import { useAuth } from '../context/AuthContext'
+import { doc, setDoc, deleteField } from 'firebase/firestore'
+import { db } from '../firebase'
 import useFetchExercises from '../hooks/fetchExercises'
 
 export default function ExerciseDropdown(props) {
@@ -9,6 +12,7 @@ export default function ExerciseDropdown(props) {
         setError,
         setAddOpenExerciseModal,
     } = props
+    const { userInfo, currentUser } = useAuth()
     const [isOpen, setIsOpen] = useState(false)
     const { loading, error, exercises, setExercises } = useFetchExercises()
 
@@ -23,6 +27,25 @@ export default function ExerciseDropdown(props) {
             document.removeEventListener('keydown', keyDownHandler)
         }
     }, [])
+
+    function handleDelete(exerciseKey) {
+        return async () => {
+            const tempObj = { ...exercises }
+            delete tempObj[exerciseKey]
+            setExercises(tempObj)
+            const userRef = doc(db, 'users', currentUser.uid)
+            await setDoc(
+                userRef,
+                {
+                    exercises: {
+                        [exerciseKey]: deleteField(),
+                    },
+                },
+                { merge: true }
+            )
+            setCurrentlySelected(null)
+        }
+    }
 
     return (
         <>
@@ -52,6 +75,7 @@ export default function ExerciseDropdown(props) {
                                 {Object.keys(exercises).map((exercise, i) => {
                                     return (
                                         <button
+                                            key={i}
                                             onClick={() => {
                                                 setCurrentlySelected(
                                                     exercises[exercise]
@@ -66,23 +90,16 @@ export default function ExerciseDropdown(props) {
                                                     {exercises[exercise]}
                                                 </div>
                                                 <div className="flex-1 justify-end items-center gap-2 flex p-2">
-                                                    <i className="fa-solid fa-pen-to-square hover:scale-125 duration-300"></i>
-                                                    <i className="fa-solid fa-trash hover:scale-125 duration-300"></i>
+                                                    <i className="fa-solid fa-pen-to-square hover:scale-125 duration-300 cursor-pointer"></i>
+                                                    <i
+                                                        onClick={handleDelete(
+                                                            exercise
+                                                        )}
+                                                        className="fa-solid fa-trash hover:scale-125 duration-300 cursor-pointer"
+                                                    ></i>
                                                 </div>
                                             </div>
                                         </button>
-                                        /* <TodoCard
-                                            key={i}
-                                            handlEditTodo={handleEditTodo}
-                                            handleAddEdit={handleAddEdit}
-                                            edit={edit}
-                                            todoKey={todo}
-                                            editedValue={editedValue}
-                                            setEditedValue={setEditedValue}
-                                            handleDelete={handleDelete}
-                                        >
-                                            {todos[todo]}
-                                        </TodoCard> */
                                     )
                                 })}
                             </>
