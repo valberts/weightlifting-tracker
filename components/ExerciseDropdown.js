@@ -90,7 +90,7 @@ export default function ExerciseDropdown(props) {
                                                     {exercises[exercise]}
                                                 </div>
                                                 <div className="flex-1 justify-end items-center gap-2 flex p-2">
-                                                    <i className="fa-solid fa-pen-to-square hover:scale-125 duration-300 cursor-pointer"></i>
+                                                    {/* <i className="fa-solid fa-pen-to-square hover:scale-125 duration-300 cursor-pointer"></i> */}
                                                     <i
                                                         onClick={handleDelete(
                                                             exercise
