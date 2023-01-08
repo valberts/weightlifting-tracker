@@ -6,11 +6,12 @@ import { db } from '../firebase'
 import useFetchExercises from '../hooks/fetchExercises'
 
 export default function AddExerciseModal(props) {
-    const { userInfo, currentUser } = useAuth()
-    const { setOpenAddExerciseModal } = props
+    // const { userInfo, currentUser } = useAuth()
+    const { setOpenAddExerciseModal, currentUser, exercises, setExercises } =
+        props
     const [_document, set_document] = useState(null)
     const [exercise, setExercise] = useState('')
-    const { exercises, setExercises } = useFetchExercises()
+    // const { exercises, setExercises } = useFetchExercises()
 
     function handleClose(e) {
         if (e.target.id === 'wrapper') {

@@ -8,7 +8,8 @@ import AddExerciseModal from './AddExerciseModal'
 export default function Header() {
     const [openAccountModal, setOpenAccountModal] = useState(false)
     const [openExerciseModal, setOpenExerciseModal] = useState(false)
-    const [openAddExerciseModal, setOpenAddExerciseModal] = useState(false)
+    const [currentlySelectedExercise, setCurrentlySelectedExercise] =
+        useState(null)
     const { currentUser, logout } = useAuth()
 
     return (
@@ -22,12 +23,8 @@ export default function Header() {
             {openExerciseModal && (
                 <SelectExerciseModal
                     setOpenExerciseModal={setOpenExerciseModal}
-                    setOpenAddExerciseModal={setOpenAddExerciseModal}
-                />
-            )}
-            {openAddExerciseModal && (
-                <AddExerciseModal
-                    setOpenAddExerciseModal={setOpenAddExerciseModal}
+                    currentlySelectedExercise={currentlySelectedExercise}
+                    setCurrentlySelectedExercise={setCurrentlySelectedExercise}
                 />
             )}
             <div className="sticky top-0 w-full left-0 bg-inherit flex items-center justify-between p-4 border-b border-solid border-white">

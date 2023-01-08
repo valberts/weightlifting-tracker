@@ -6,15 +6,19 @@ import useFetchExercises from '../hooks/fetchExercises'
 
 export default function ExerciseDropdown(props) {
     const {
-        setOpenExerciseModal,
-        currentlySelected,
-        setCurrentlySelected,
-        setError,
+        currentlySelectedExercise,
+        setCurrentlySelectedExercise,
+        setError1,
         setAddOpenExerciseModal,
+        currentUser,
+        loading,
+        error,
+        exercises,
+        setExercises,
     } = props
-    const { userInfo, currentUser } = useAuth()
+    // const { userInfo, currentUser } = useAuth()
     const [isOpen, setIsOpen] = useState(false)
-    const { loading, error, exercises, setExercises } = useFetchExercises()
+    // const { loading, error, exercises, setExercises } = useFetchExercises()
 
     useEffect(() => {
         const keyDownHandler = (event) => {
@@ -43,7 +47,7 @@ export default function ExerciseDropdown(props) {
                 },
                 { merge: true }
             )
-            setCurrentlySelected(null)
+            setCurrentlySelectedExercise(null)
         }
     }
 
@@ -54,7 +58,9 @@ export default function ExerciseDropdown(props) {
                     onClick={() => setIsOpen(!isOpen)}
                     className="flex flex-row items-center justify-center p-2 border border-slate-300 w-full select-none text-lg"
                 >
-                    {currentlySelected ? currentlySelected : 'Select Exercise'}
+                    {currentlySelectedExercise
+                        ? currentlySelectedExercise
+                        : 'Select Exercise'}
                     <i
                         className={`fa-solid fa-chevron-down px-2 duration-300 ${
                             isOpen ? 'rotate-180' : ''
@@ -77,11 +83,11 @@ export default function ExerciseDropdown(props) {
                                         <button
                                             key={i}
                                             onClick={() => {
-                                                setCurrentlySelected(
+                                                setCurrentlySelectedExercise(
                                                     exercises[exercise]
                                                 )
                                                 setIsOpen(false)
-                                                setError(null)
+                                                setError1(null)
                                             }}
                                             className="sm:py-1 py-2 select-none duration-300 hover:bg-indigo-500 hover:text-white border-b-slate-200 border-t-2"
                                         >
@@ -106,9 +112,9 @@ export default function ExerciseDropdown(props) {
                         )}
                         <button
                             onClick={() => {
-                                setCurrentlySelected(null)
+                                setCurrentlySelectedExercise(null)
                                 setIsOpen(false)
-                                setError(null)
+                                setError1(null)
                                 // setOpenExerciseModal(false)
                                 setAddOpenExerciseModal(true)
                             }}
