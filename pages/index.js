@@ -5,7 +5,8 @@ import Login from '../components/Login'
 // import UserDashboard from '../components/UserDashboard'
 import { useAuth } from '../context/AuthContext'
 
-export default function Home() {
+export default function Home(props) {
+    const { currentlySelectedExercise } = props
     const { currentUser } = useAuth()
     return (
         <>
@@ -18,7 +19,11 @@ export default function Home() {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
             {!currentUser && <Login />}
-            {currentUser && <Dashboard />}
+            {currentUser && (
+                <Dashboard
+                    currentlySelectedExercise={currentlySelectedExercise}
+                />
+            )}
         </>
     )
 }

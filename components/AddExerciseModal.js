@@ -1,17 +1,19 @@
 import React, { useState, useEffect } from 'react'
 import ReactDom from 'react-dom'
-import { useAuth } from '../context/AuthContext'
 import { doc, setDoc, deleteField } from 'firebase/firestore'
 import { db } from '../firebase'
-import useFetchExercises from '../hooks/fetchExercises'
 
 export default function AddExerciseModal(props) {
-    // const { userInfo, currentUser } = useAuth()
-    const { setOpenAddExerciseModal, currentUser, exercises, setExercises } =
-        props
+    const {
+        setOpenAddExerciseModal,
+        currentUser,
+        exercises,
+        setExercises,
+        setCurrentlySelectedExercise,
+    } = props
     const [_document, set_document] = useState(null)
     const [exercise, setExercise] = useState('')
-    // const { exercises, setExercises } = useFetchExercises()
+    const [loading, setLoading] = useState(false)
 
     function handleClose(e) {
         if (e.target.id === 'wrapper') {
@@ -23,6 +25,7 @@ export default function AddExerciseModal(props) {
         if (!exercise) {
             return
         }
+        setLoading(true)
         const newKey =
             Object.keys(exercises).length === 0
                 ? 1
@@ -38,6 +41,7 @@ export default function AddExerciseModal(props) {
             },
             { merge: true }
         )
+        setCurrentlySelectedExercise(exercise)
         setExercise('')
         setOpenAddExerciseModal(false)
     }
@@ -53,7 +57,8 @@ export default function AddExerciseModal(props) {
     return ReactDom.createPortal(
         <div
             onClick={handleClose}
-            className="fixed inset-0 bg-slate-900 bg-opacity-25 flex justify-center items-center"
+            className="fixed inset-0 flex justify-center items-center"
+            // className="fixed inset-0 bg-slate-900 bg-opacity-25 flex justify-center items-center"
             id="wrapper"
         >
             <div className="w-full max-w-[30ch] rounded-lg shadow-xl flex flex-col bg-white text-slate-900">
@@ -78,7 +83,11 @@ export default function AddExerciseModal(props) {
                         onClick={handleAddExercise}
                         className="py-2 sm:py-1 px-3 rounded-md bg-blue-600 border border-transparent text-white duration-300 hover:bg-blue-700 select-none w-full sm:w-auto text-lg sm:text-base"
                     >
-                        Add
+                        {loading ? (
+                            <i className="fa-solid fa-spinner animate-spin"></i>
+                        ) : (
+                            'Add'
+                        )}
                     </button>
                 </div>
             </div>

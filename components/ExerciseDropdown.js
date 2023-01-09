@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import { useAuth } from '../context/AuthContext'
 import { doc, setDoc, deleteField } from 'firebase/firestore'
 import { db } from '../firebase'
-import useFetchExercises from '../hooks/fetchExercises'
 
 export default function ExerciseDropdown(props) {
     const {
@@ -16,9 +14,9 @@ export default function ExerciseDropdown(props) {
         exercises,
         setExercises,
     } = props
-    // const { userInfo, currentUser } = useAuth()
     const [isOpen, setIsOpen] = useState(false)
-    // const { loading, error, exercises, setExercises } = useFetchExercises()
+    // const [edit, setEdit] = useState(null)
+    // const [editedValue, setEditedValue] = useState('')
 
     useEffect(() => {
         const keyDownHandler = (event) => {
@@ -51,12 +49,16 @@ export default function ExerciseDropdown(props) {
         }
     }
 
+    function handleEdit(exerciseKey) {
+        // alert('HELLO')
+    }
+
     return (
         <>
             <div className="relative">
                 <button
                     onClick={() => setIsOpen(!isOpen)}
-                    className="flex flex-row items-center justify-center p-2 border border-slate-300 w-full select-none text-lg"
+                    className="flex flex-row items-center justify-center p-3 border border-slate-300 w-full select-none text-lg font-semibold"
                 >
                     {currentlySelectedExercise
                         ? currentlySelectedExercise
@@ -75,37 +77,49 @@ export default function ExerciseDropdown(props) {
                     ></button>
                 )}
                 {isOpen && (
-                    <div className="mt-2 flex flex-col absolute w-full max-h-80 sm:max-h-56 shadow-lg overflow-scroll border bg-white">
+                    <div className="mt-2 flex flex-col absolute w-full max-h-80 sm:max-h-56 shadow-lg overflow-scroll border border-slate-300 bg-white">
+                        {loading && (
+                            <div className="flex-1 grid place-items-center p-4 text-2xl">
+                                <i className="fa-solid fa-spinner animate-spin "></i>
+                            </div>
+                        )}
                         {!error && !loading && (
                             <>
                                 {Object.keys(exercises).map((exercise, i) => {
                                     return (
-                                        <button
+                                        <div
                                             key={i}
-                                            onClick={() => {
-                                                setCurrentlySelectedExercise(
-                                                    exercises[exercise]
-                                                )
-                                                setIsOpen(false)
-                                                setError1(null)
-                                            }}
-                                            className="sm:py-1 py-2 select-none duration-300 hover:bg-indigo-500 hover:text-white border-b-slate-200 border-t-2"
+                                            className="flex flex-row text-lg duration-300 hover:bg-indigo-500 hover:text-white border-b border-slate-300"
                                         >
-                                            <div className="flex flex-row text-lg">
+                                            <button
+                                                onClick={() => {
+                                                    setCurrentlySelectedExercise(
+                                                        exercises[exercise]
+                                                    )
+                                                    setIsOpen(false)
+                                                    setError1(null)
+                                                }}
+                                                className="sm:py-1 py-2 select-none flex-1 flex"
+                                            >
                                                 <div className="p-2">
                                                     {exercises[exercise]}
                                                 </div>
-                                                <div className="flex-1 justify-end items-center gap-2 flex p-2">
-                                                    {/* <i className="fa-solid fa-pen-to-square hover:scale-125 duration-300 cursor-pointer"></i> */}
-                                                    <i
-                                                        onClick={handleDelete(
-                                                            exercise
-                                                        )}
-                                                        className="fa-solid fa-trash hover:scale-125 duration-300 cursor-pointer"
-                                                    ></i>
-                                                </div>
+                                            </button>
+                                            <div className="justify-end items-center gap-2 flex p-2">
+                                                <i
+                                                    onClick={handleEdit(
+                                                        exercise
+                                                    )}
+                                                    className="fa-solid fa-pen-to-square hover:scale-125 duration-300 cursor-pointer"
+                                                ></i>
+                                                <i
+                                                    onClick={handleDelete(
+                                                        exercise
+                                                    )}
+                                                    className="fa-solid fa-trash hover:scale-125 duration-300 cursor-pointer"
+                                                ></i>
                                             </div>
-                                        </button>
+                                        </div>
                                     )
                                 })}
                             </>
@@ -118,7 +132,7 @@ export default function ExerciseDropdown(props) {
                                 // setOpenExerciseModal(false)
                                 setAddOpenExerciseModal(true)
                             }}
-                            className="flex flex-row items-center justify-center sm:py-1 py-2 select-none duration-300 hover:bg-indigo-500 hover:text-white border-t-2 text-lg"
+                            className="flex flex-row items-center justify-center sm:py-1 py-2 select-none duration-300 hover:bg-indigo-500 hover:text-white text-lg"
                         >
                             <i className="fa-solid fa-plus p-2"></i>
                             <h2 className="font-semibold p-2">

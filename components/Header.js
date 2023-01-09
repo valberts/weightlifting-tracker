@@ -3,13 +3,11 @@ import AccountDropdown from './AccountDropdown'
 import AccountModal from './AccountModal'
 import { useAuth } from '../context/AuthContext'
 import SelectExerciseModal from './SelectExerciseModal'
-import AddExerciseModal from './AddExerciseModal'
 
-export default function Header() {
+export default function Header(props) {
+    const { currentlySelectedExercise, setCurrentlySelectedExercise } = props
     const [openAccountModal, setOpenAccountModal] = useState(false)
     const [openExerciseModal, setOpenExerciseModal] = useState(false)
-    const [currentlySelectedExercise, setCurrentlySelectedExercise] =
-        useState(null)
     const { currentUser, logout } = useAuth()
 
     return (

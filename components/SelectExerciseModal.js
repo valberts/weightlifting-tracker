@@ -7,7 +7,7 @@ import useFetchExercises from '../hooks/fetchExercises'
 
 export default function SelectExerciseModal(props) {
     const { exercises, setExercises, loading, error } = useFetchExercises()
-    const { userInfo, currentUser } = useAuth()
+    const { currentUser } = useAuth()
     const {
         setOpenExerciseModal,
         currentlySelectedExercise,
@@ -16,8 +16,6 @@ export default function SelectExerciseModal(props) {
     const [_document, set_document] = useState(null)
     const [error1, setError1] = useState(null)
     const [openAddExerciseModal, setOpenAddExerciseModal] = useState(false)
-
-    // const [currentlySelected, setCurrentlySelected] = useState(null)
 
     function handleClose(e) {
         if (e.target.id === 'wrapper') {
@@ -50,6 +48,7 @@ export default function SelectExerciseModal(props) {
                     currentUser={currentUser}
                     exercises={exercises}
                     setExercises={setExercises}
+                    setCurrentlySelectedExercise={setCurrentlySelectedExercise}
                 />
             )}
             <div
@@ -81,7 +80,7 @@ export default function SelectExerciseModal(props) {
                         )}
                     </div>
 
-                    <div className="py-2 px-4 flex-col-reverse sm:flex-row flex justify-end sm:space-x-3 items-center bg-slate-100 rounded-b-lg text-lg sm:text-base">
+                    <div className="py-2 px-4 flex-col-reverse sm:flex-row flex justify-end sm:space-x-3 items-center bg-slate-100 rounded-b-lg text-lg sm:text-base font-semibold">
                         <button
                             onClick={() => setOpenExerciseModal(false)}
                             className="py-2 mt-2 sm:mt-0 sm:py-1 px-3 rounded-md bg-white border border-slate-300 duration-300 hover:bg-slate-100 select-none w-full sm:w-auto"
