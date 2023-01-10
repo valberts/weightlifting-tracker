@@ -2,7 +2,6 @@ import Head from 'next/head'
 import Image from 'next/image'
 import Dashboard from '../components/Dashboard'
 import Login from '../components/Login'
-// import UserDashboard from '../components/UserDashboard'
 import { useAuth } from '../context/AuthContext'
 
 export default function Home(props) {
