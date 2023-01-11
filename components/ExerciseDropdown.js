@@ -15,7 +15,8 @@ export default function ExerciseDropdown(props) {
         setExercises,
     } = props
     const [isOpen, setIsOpen] = useState(false)
-    // const [edit, setEdit] = useState(null)
+    const [edit, setEdit] = useState(null)
+    // const [todo, setTodo] = useState('')
     // const [editedValue, setEditedValue] = useState('')
 
     useEffect(() => {
@@ -49,8 +50,15 @@ export default function ExerciseDropdown(props) {
         }
     }
 
-    function handleEdit(exerciseKey) {
-        // alert('HELLO')
+    async function handleEditExercise() {
+        setEdit(null)
+    }
+
+    function handleAddEdit(exerciseKey) {
+        return () => {
+            setEdit(exerciseKey)
+            // setEditedValue(todos[todoKey])
+        }
     }
 
     return (
@@ -106,18 +114,29 @@ export default function ExerciseDropdown(props) {
                                                 </div>
                                             </button>
                                             <div className="justify-end items-center gap-2 flex p-2">
-                                                <i
-                                                    onClick={handleEdit(
-                                                        exercise
-                                                    )}
-                                                    className="fa-solid fa-pen-to-square hover:scale-125 duration-300 cursor-pointer"
-                                                ></i>
-                                                <i
-                                                    onClick={handleDelete(
-                                                        exercise
-                                                    )}
-                                                    className="fa-solid fa-trash hover:scale-125 duration-300 cursor-pointer"
-                                                ></i>
+                                                {!(edit === exercise) ? (
+                                                    <>
+                                                        <i
+                                                            onClick={handleAddEdit(
+                                                                exercise
+                                                            )}
+                                                            className="fa-solid fa-pen-to-square hover:scale-125 duration-300 cursor-pointer"
+                                                        ></i>
+                                                        <i
+                                                            onClick={handleDelete(
+                                                                exercise
+                                                            )}
+                                                            className="fa-solid fa-trash hover:scale-125 duration-300 cursor-pointer"
+                                                        ></i>
+                                                    </>
+                                                ) : (
+                                                    <i
+                                                        onClick={
+                                                            handleEditExercise
+                                                        }
+                                                        className="fa-solid fa-check hover:scale-125 duration-300 cursor-pointer"
+                                                    ></i>
+                                                )}
                                             </div>
                                         </div>
                                     )
