@@ -17,7 +17,7 @@ export default function ExerciseDropdown(props) {
     const [isOpen, setIsOpen] = useState(false)
     const [edit, setEdit] = useState(null)
     // const [todo, setTodo] = useState('')
-    // const [editedValue, setEditedValue] = useState('')
+    const [editedValue, setEditedValue] = useState('')
 
     useEffect(() => {
         const keyDownHandler = (event) => {
@@ -57,7 +57,7 @@ export default function ExerciseDropdown(props) {
     function handleAddEdit(exerciseKey) {
         return () => {
             setEdit(exerciseKey)
-            // setEditedValue(todos[todoKey])
+            setEditedValue(exercises[exerciseKey])
         }
     }
 
@@ -97,22 +97,34 @@ export default function ExerciseDropdown(props) {
                                     return (
                                         <div
                                             key={i}
-                                            className="flex flex-row text-lg duration-300 hover:bg-indigo-500 hover:text-white border-b border-slate-300"
+                                            className="flex flex-row text-lg duration-300 hover:bg-indigo-500 hover:text-white border-b border-slate-300 p-3 items-center"
                                         >
-                                            <button
-                                                onClick={() => {
-                                                    setCurrentlySelectedExercise(
-                                                        exercises[exercise]
-                                                    )
-                                                    setIsOpen(false)
-                                                    setError1(null)
-                                                }}
-                                                className="sm:py-1 py-2 select-none flex-1 flex"
-                                            >
-                                                <div className="p-2">
-                                                    {exercises[exercise]}
-                                                </div>
-                                            </button>
+                                            {!(edit === exercise) ? (
+                                                <button
+                                                    onClick={() => {
+                                                        setCurrentlySelectedExercise(
+                                                            exercises[exercise]
+                                                        )
+                                                        setIsOpen(false)
+                                                        setError1(null)
+                                                    }}
+                                                    className="select-none flex-1 flex"
+                                                >
+                                                    <div className="">
+                                                        {exercises[exercise]}
+                                                    </div>
+                                                </button>
+                                            ) : (
+                                                <input
+                                                    className="flex-1 bg-inherit opacity-50 text-white outline-none"
+                                                    value={editedValue}
+                                                    onChange={(e) =>
+                                                        setEditedValue(
+                                                            e.target.value
+                                                        )
+                                                    }
+                                                />
+                                            )}
                                             <div className="justify-end items-center gap-2 flex p-2">
                                                 {!(edit === exercise) ? (
                                                     <>
