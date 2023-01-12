@@ -10,6 +10,7 @@ export default function AddExerciseModal(props) {
         exercises,
         setExercises,
         setCurrentlySelectedExercise,
+        setSelectedExercise,
     } = props
     const [_document, set_document] = useState(null)
     const [exercise, setExercise] = useState('')
@@ -42,6 +43,7 @@ export default function AddExerciseModal(props) {
             { merge: true }
         )
         setCurrentlySelectedExercise(exercise)
+        setSelectedExercise(exercise)
         setExercise('')
         setOpenAddExerciseModal(false)
     }

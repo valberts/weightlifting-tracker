@@ -13,10 +13,11 @@ export default function ExerciseDropdown(props) {
         error,
         exercises,
         setExercises,
+        selectedExercise,
+        setSelectedExercise,
     } = props
     const [isOpen, setIsOpen] = useState(false)
     const [edit, setEdit] = useState(null)
-    // const [todo, setTodo] = useState('')
     const [editedValue, setEditedValue] = useState('')
 
     useEffect(() => {
@@ -51,7 +52,24 @@ export default function ExerciseDropdown(props) {
     }
 
     async function handleEditExercise() {
+        if (!editedValue) {
+            return
+        }
+        const newKey = edit
+        setExercises({ ...exercises, [newKey]: editedValue })
+        const userRef = doc(db, 'users', currentUser.uid)
+        await setDoc(
+            userRef,
+            {
+                exercises: {
+                    [newKey]: editedValue,
+                },
+            },
+            { merge: true }
+        )
         setEdit(null)
+        setCurrentlySelectedExercise(editedValue)
+        setEditedValue('')
     }
 
     function handleAddEdit(exerciseKey) {
@@ -68,9 +86,14 @@ export default function ExerciseDropdown(props) {
                     onClick={() => setIsOpen(!isOpen)}
                     className="flex flex-row items-center justify-center p-3 border border-slate-300 w-full select-none text-lg font-semibold"
                 >
-                    {currentlySelectedExercise
+                    {selectedExercise && currentlySelectedExercise
+                        ? selectedExercise
+                        : currentlySelectedExercise
                         ? currentlySelectedExercise
+                        : selectedExercise
+                        ? selectedExercise
                         : 'Select Exercise'}
+
                     <i
                         className={`fa-solid fa-chevron-down px-2 duration-300 ${
                             isOpen ? 'rotate-180' : ''
@@ -102,7 +125,10 @@ export default function ExerciseDropdown(props) {
                                             {!(edit === exercise) ? (
                                                 <button
                                                     onClick={() => {
-                                                        setCurrentlySelectedExercise(
+                                                        // setCurrentlySelectedExercise(
+                                                        //     exercises[exercise]
+                                                        // )
+                                                        setSelectedExercise(
                                                             exercises[exercise]
                                                         )
                                                         setIsOpen(false)
@@ -157,7 +183,8 @@ export default function ExerciseDropdown(props) {
                         )}
                         <button
                             onClick={() => {
-                                setCurrentlySelectedExercise(null)
+                                // setCurrentlySelectedExercise(null)
+                                setSelectedExercise(null)
                                 setIsOpen(false)
                                 setError1(null)
                                 // setOpenExerciseModal(false)

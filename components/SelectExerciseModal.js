@@ -16,6 +16,7 @@ export default function SelectExerciseModal(props) {
     const [_document, set_document] = useState(null)
     const [error1, setError1] = useState(null)
     const [openAddExerciseModal, setOpenAddExerciseModal] = useState(false)
+    const [selectedExercise, setSelectedExercise] = useState(null)
 
     function handleClose(e) {
         if (e.target.id === 'wrapper') {
@@ -24,7 +25,8 @@ export default function SelectExerciseModal(props) {
     }
 
     function handleSelect() {
-        if (currentlySelectedExercise) {
+        if (selectedExercise) {
+            setCurrentlySelectedExercise(selectedExercise)
             setError1(null)
             setOpenExerciseModal(false)
             return
@@ -49,6 +51,7 @@ export default function SelectExerciseModal(props) {
                     exercises={exercises}
                     setExercises={setExercises}
                     setCurrentlySelectedExercise={setCurrentlySelectedExercise}
+                    setSelectedExercise={setSelectedExercise}
                 />
             )}
             <div
@@ -65,6 +68,8 @@ export default function SelectExerciseModal(props) {
                             setCurrentlySelectedExercise={
                                 setCurrentlySelectedExercise
                             }
+                            selectedExercise={selectedExercise}
+                            setSelectedExercise={setSelectedExercise}
                             setAddOpenExerciseModal={setOpenAddExerciseModal}
                             setError1={setError1}
                             loading={loading}
