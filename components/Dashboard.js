@@ -1,4 +1,5 @@
 import React from 'react'
+import Graph from './Graph'
 
 export default function Dashboard(props) {
     const { currentlySelectedExercise } = props
@@ -9,7 +10,9 @@ export default function Dashboard(props) {
                     onClick={() => alert(currentlySelectedExercise)}
                     className="text-black bg-white"
                 >
-                    Graph {currentlySelectedExercise}
+                    <Graph
+                        currentlySelectedExercise={currentlySelectedExercise}
+                    />
                 </h2>
             </div>
         </div>

@@ -47,6 +47,7 @@ export default function ExerciseDropdown(props) {
                 },
                 { merge: true }
             )
+            setSelectedExercise(null)
             setCurrentlySelectedExercise(null)
         }
     }

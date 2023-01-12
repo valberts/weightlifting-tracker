@@ -16,7 +16,9 @@ export default function SelectExerciseModal(props) {
     const [_document, set_document] = useState(null)
     const [error1, setError1] = useState(null)
     const [openAddExerciseModal, setOpenAddExerciseModal] = useState(false)
-    const [selectedExercise, setSelectedExercise] = useState(null)
+    const [selectedExercise, setSelectedExercise] = useState(
+        currentlySelectedExercise
+    )
 
     function handleClose(e) {
         if (e.target.id === 'wrapper') {
