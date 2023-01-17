@@ -14,12 +14,7 @@ export default function Layout(props) {
                 currentlySelectedExercise={currentlySelectedExercise}
                 setCurrentlySelectedExercise={setCurrentlySelectedExercise}
             />
-            <main
-                className="flex-1 flex flex-col p-4 "
-                // currentlySelectedExercise={currentlySelectedExercise}
-            >
-                {children}
-            </main>
+            <main className="flex-1 flex flex-col p-4 ">{children}</main>
             <Footer />
         </div>
     )
