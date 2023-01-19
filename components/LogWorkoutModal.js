@@ -5,6 +5,9 @@ export default function LogWorkoutModal(props) {
     const { currentlySelectedExercise, setOpenWorkoutModal } = props
     const [error, setError] = useState(null)
     const [_document, set_document] = useState(null)
+    const [weight, setWeight] = useState('')
+    const [reps, setReps] = useState('')
+    const [date, setDate] = useState('')
 
     useEffect(() => {
         set_document(document)
@@ -23,6 +26,10 @@ export default function LogWorkoutModal(props) {
     function handleSubmit() {
         return () => {
             if (currentlySelectedExercise) {
+                if (!weight || !reps || !date) {
+                    setError('Please complete the form')
+                    return
+                }
                 setError(null)
                 return
             }
