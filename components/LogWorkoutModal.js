@@ -3,6 +3,7 @@ import ReactDom from 'react-dom'
 
 export default function LogWorkoutModal(props) {
     const { currentlySelectedExercise, setOpenWorkoutModal } = props
+    const [error, setError] = useState(null)
     const [_document, set_document] = useState(null)
 
     useEffect(() => {
@@ -19,6 +20,16 @@ export default function LogWorkoutModal(props) {
         }
     }
 
+    function handleSubmit() {
+        return () => {
+            if (currentlySelectedExercise) {
+                setError(null)
+                return
+            }
+            setError('Please select an exercise first')
+        }
+    }
+
     return ReactDom.createPortal(
         <div
             onClick={handleClose}
@@ -27,16 +38,16 @@ export default function LogWorkoutModal(props) {
         >
             <div className="w-full max-w-[30ch] rounded-lg shadow-xl flex flex-col bg-white text-slate-900">
                 <div className="sm:p-6 p-4 flex flex-col flex-1">
-                    {/* {error && (
-                            <div className="w-full max-w-[30ch] border border-solid border-rose-400 text-rose-400 text-center mt-4 text-lg sm:text-base">
-                                {error}
-                            </div>
-                        )} */}
                     <h2 className="p-2 font-semibold text-lg">
                         {currentlySelectedExercise
                             ? currentlySelectedExercise
                             : 'No exercise selected'}
                     </h2>
+                    {error && (
+                        <div className="w-full max-w-[30ch] border border-solid border-rose-400 text-rose-400 text-center mb-2 text-lg sm:text-base">
+                            {error}
+                        </div>
+                    )}
                     {/* <h2 className="px-2">Log a workout:</h2> */}
                     <input
                         // value={exercise}
@@ -68,7 +79,10 @@ export default function LogWorkoutModal(props) {
                     >
                         Cancel
                     </button>
-                    <button className="py-2 sm:py-1 px-3 rounded-md bg-blue-600 border border-transparent text-white duration-300 hover:bg-blue-700 select-none w-full sm:w-auto text-lg sm:text-base">
+                    <button
+                        onClick={handleSubmit()}
+                        className="py-2 sm:py-1 px-3 rounded-md bg-blue-600 border border-transparent text-white duration-300 hover:bg-blue-700 select-none w-full sm:w-auto text-lg sm:text-base"
+                    >
                         Submit
                     </button>
                 </div>
