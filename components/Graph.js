@@ -116,7 +116,7 @@ export default function Graph(props) {
           }
 
     return (
-        <div>
+        <div className="text-black bg-white">
             <Line data={data} width={1000} height={400} options={options} />
         </div>
     )

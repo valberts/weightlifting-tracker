@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react'
 
 export default function AccountDropdown(props) {
     const [isOpen, setIsOpen] = useState(false)
-    const { currentUser, logout, setOpenExerciseModal } = props
+    const { currentUser, logout, setOpenExerciseModal, setOpenWorkoutModal } =
+        props
 
     useEffect(() => {
         const keyDownHandler = (event) => {
@@ -44,7 +45,13 @@ export default function AccountDropdown(props) {
                         <i className="fa-solid fa-list block pr-2"></i>
                         <h2 className="block">Select exercise</h2>
                     </div>
-                    <div className="flex flex-row items-center py-2 px-4 duration-300 hover:bg-indigo-500 hover:text-white select-none cursor-pointer">
+                    <div
+                        onClick={() => {
+                            setOpenWorkoutModal(true)
+                            setIsOpen(false)
+                        }}
+                        className="flex flex-row items-center py-2 px-4 duration-300 hover:bg-indigo-500 hover:text-white select-none cursor-pointer"
+                    >
                         <i className="fa-solid fa-plus block pr-2"></i>
                         <h2 className="block">Log workout</h2>
                     </div>
