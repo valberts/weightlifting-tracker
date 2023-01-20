@@ -57,22 +57,22 @@ export default function LogWorkoutModal(props) {
                     )}
                     {/* <h2 className="px-2">Log a workout:</h2> */}
                     <input
-                        // value={exercise}
-                        // onChange={(e) => setExercise(e.target.value)}
+                        value={weight}
+                        onChange={(e) => setWeight(e.target.value)}
                         type="text"
                         placeholder="Weight"
                         className="outline-none duration-300 border-slate-300 border text-slate-900 p-2 w-full max-w-[30ch]"
                     />
                     <input
-                        // value={exercise}
-                        // onChange={(e) => setExercise(e.target.value)}
+                        value={reps}
+                        onChange={(e) => setReps(e.target.value)}
                         type="text"
                         placeholder="Total number of reps"
                         className="outline-none duration-300 border-slate-300 border text-slate-900 p-2 mt-2 w-full max-w-[30ch]"
                     />
                     <input
-                        // value={exercise}
-                        // onChange={(e) => setExercise(e.target.value)}
+                        value={date}
+                        onChange={(e) => setDate(e.target.value)}
                         type="text"
                         placeholder="Date"
                         className="outline-none duration-300 border-slate-300 border text-slate-900 p-2 mt-2 w-full max-w-[30ch]"
