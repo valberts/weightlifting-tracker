@@ -70,13 +70,16 @@ export default function LogWorkoutModal(props) {
                         placeholder="Total number of reps"
                         className="outline-none duration-300 border-slate-300 border text-slate-900 p-2 mt-2 w-full max-w-[30ch]"
                     />
-                    <input
-                        value={date}
-                        onChange={(e) => setDate(e.target.value)}
-                        type="text"
-                        placeholder="Date"
-                        className="outline-none duration-300 border-slate-300 border text-slate-900 p-2 mt-2 w-full max-w-[30ch]"
-                    />
+                    <div className="flex flex-row items-center">
+                        <input
+                            value={date}
+                            onChange={(e) => setDate(e.target.value)}
+                            type="text"
+                            placeholder="Date"
+                            className="outline-none duration-300 border-slate-300 border text-slate-900 p-2 mt-2 w-full max-w-[30ch]"
+                        />
+                        <i className="fa-solid fa-calendar-days"></i>
+                    </div>
                 </div>
 
                 <div className="py-2 px-4 flex-col-reverse sm:flex-row flex justify-end sm:space-x-3 items-center bg-slate-100 rounded-b-lg text-lg sm:text-base font-semibold">
