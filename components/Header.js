@@ -18,6 +18,7 @@ export default function Header(props) {
                 <AccountModal
                     setOpenAccountModal={setOpenAccountModal}
                     setOpenExerciseModal={setOpenExerciseModal}
+                    setOpenWorkoutModal={setOpenWorkoutModal}
                 />
             )}
             {openExerciseModal && (

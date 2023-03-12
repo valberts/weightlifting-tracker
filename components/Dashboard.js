@@ -6,7 +6,7 @@ export default function Dashboard(props) {
     return (
         <div className="flex">
             <div className="">
-                <Graph currentlySelectedExercise={currentlySelectedExercise} />
+                {/* <Graph currentlySelectedExercise={currentlySelectedExercise} /> */}
             </div>
         </div>
     )

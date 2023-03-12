@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import ReactDom from 'react-dom'
+import DatePicker from 'react-datepicker'
+import 'react-datepicker/dist/react-datepicker.css'
 
 export default function LogWorkoutModal(props) {
     const { currentlySelectedExercise, setOpenWorkoutModal } = props
@@ -7,7 +9,7 @@ export default function LogWorkoutModal(props) {
     const [_document, set_document] = useState(null)
     const [weight, setWeight] = useState('')
     const [reps, setReps] = useState('')
-    const [date, setDate] = useState('')
+    const [startDate, setStartDate] = useState(new Date())
 
     useEffect(() => {
         set_document(document)
@@ -58,27 +60,37 @@ export default function LogWorkoutModal(props) {
                     {/* <h2 className="px-2">Log a workout:</h2> */}
                     <input
                         value={weight}
-                        onChange={(e) => setWeight(e.target.value)}
+                        onChange={(e) =>
+                            setWeight(e.target.value.replace(/\D/, ''))
+                        }
                         type="text"
-                        placeholder="Weight"
+                        placeholder="Weight (kg)"
                         className="outline-none duration-300 border-slate-300 border text-slate-900 p-2 w-full max-w-[30ch]"
                     />
                     <input
                         value={reps}
-                        onChange={(e) => setReps(e.target.value)}
+                        onChange={(e) =>
+                            setReps(e.target.value.replace(/\D/, ''))
+                        }
                         type="text"
-                        placeholder="Total number of reps"
+                        placeholder="Number of reps (total)"
                         className="outline-none duration-300 border-slate-300 border text-slate-900 p-2 mt-2 w-full max-w-[30ch]"
                     />
-                    <div className="flex flex-row items-center">
-                        <input
+                    <div className="flex flex-row items-center relative">
+                        <DatePicker
+                            selected={startDate}
+                            onChange={(date) => setStartDate(date)}
+                            className="outline-none duration-300 border-slate-300 border text-slate-900 p-2 mt-2 w-full max-w-[30ch]"
+                        />
+                        {/* <input
                             value={date}
                             onChange={(e) => setDate(e.target.value)}
                             type="text"
                             placeholder="Date"
                             className="outline-none duration-300 border-slate-300 border text-slate-900 p-2 mt-2 w-full max-w-[30ch]"
                         />
-                        <i className="fa-solid fa-calendar-days"></i>
+                        */}
+                        <i className="fa-solid fa-calendar-days absolute top-5 right-3 pointer-events-none"></i>
                     </div>
                 </div>
 
