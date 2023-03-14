@@ -10,6 +10,7 @@ export default function LogWorkoutModal(props) {
     const [weight, setWeight] = useState('')
     const [reps, setReps] = useState('')
     const [startDate, setStartDate] = useState(new Date())
+    const [loading, setLoading] = useState(false)
 
     useEffect(() => {
         set_document(document)
@@ -28,14 +29,16 @@ export default function LogWorkoutModal(props) {
     function handleSubmit() {
         return () => {
             if (currentlySelectedExercise) {
-                if (!weight || !reps || !date) {
+                if (!weight || !reps) {
                     setError('Please complete the form')
                     return
                 }
                 setError(null)
+                setLoading(true)
                 return
             }
             setError('Please select an exercise first')
+            return
         }
     }
 
@@ -82,14 +85,6 @@ export default function LogWorkoutModal(props) {
                             onChange={(date) => setStartDate(date)}
                             className="outline-none duration-300 border-slate-300 border text-slate-900 p-2 mt-2 w-full max-w-[30ch]"
                         />
-                        {/* <input
-                            value={date}
-                            onChange={(e) => setDate(e.target.value)}
-                            type="text"
-                            placeholder="Date"
-                            className="outline-none duration-300 border-slate-300 border text-slate-900 p-2 mt-2 w-full max-w-[30ch]"
-                        />
-                        */}
                         <i className="fa-solid fa-calendar-days absolute top-5 right-3 pointer-events-none"></i>
                     </div>
                 </div>
@@ -105,7 +100,11 @@ export default function LogWorkoutModal(props) {
                         onClick={handleSubmit()}
                         className="py-2 sm:py-1 px-3 rounded-md bg-blue-600 border border-transparent text-white duration-300 hover:bg-blue-700 select-none w-full sm:w-auto text-lg sm:text-base"
                     >
-                        Submit
+                        {loading ? (
+                            <i className="fa-solid fa-spinner animate-spin"></i>
+                        ) : (
+                            'Submit'
+                        )}
                     </button>
                 </div>
             </div>

@@ -143,7 +143,7 @@ export default function ExerciseDropdown(props) {
                                                 </button>
                                             ) : (
                                                 <input
-                                                    className="flex-1 bg-inherit opacity-50 text-white outline-none"
+                                                    className="flex-1 bg-inherit opacity-70 outline-none max-w-[16ch]"
                                                     value={editedValue}
                                                     onChange={(e) =>
                                                         setEditedValue(
@@ -173,7 +173,7 @@ export default function ExerciseDropdown(props) {
                                                         onClick={
                                                             handleEditExercise
                                                         }
-                                                        className="fa-solid fa-check hover:scale-125 duration-300 cursor-pointer"
+                                                        className="fa-solid fa-check hover:scale-125 duration-300 cursor-pointer pr-2 pl-4 -ml-3"
                                                     ></i>
                                                 )}
                                             </div>
