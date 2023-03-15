@@ -65,7 +65,9 @@ export default function AddExerciseModal(props) {
         >
             <div className="w-full max-w-[30ch] rounded-lg shadow-xl flex flex-col bg-white text-slate-900">
                 <div className="sm:p-6 p-4 flex flex-col flex-1">
-                    <h2 className="p-2">Create a new exercise:</h2>
+                    <h2 className="p-2 font-semibold text-lg">
+                        Create a new exercise:
+                    </h2>
                     <input
                         value={exercise}
                         onChange={(e) => setExercise(e.target.value)}
