@@ -69,6 +69,7 @@ export default function ExerciseDropdown(props) {
             { merge: true }
         )
         setEdit(null)
+        setSelectedExercise(editedValue)
         setCurrentlySelectedExercise(editedValue)
         setEditedValue('')
     }
@@ -126,9 +127,6 @@ export default function ExerciseDropdown(props) {
                                             {!(edit === exercise) ? (
                                                 <button
                                                     onClick={() => {
-                                                        // setCurrentlySelectedExercise(
-                                                        //     exercises[exercise]
-                                                        // )
                                                         setSelectedExercise(
                                                             exercises[exercise]
                                                         )
